@@ -57,8 +57,10 @@ body{
 }
 
 .email,
-.city{
+.city,
+.phone,
+.address,
+.birthday{
     color: $primaryThemeColor;
     margin-top: 8px;
 }
-
