@@ -121,5 +121,10 @@ randomUsers(randomUsersAPI)
 body.addEventListener("click",(e)=>{
     if(e.target.classList.contains("name")){
        let name = e.target.textContent;
+       console.log(name); 
     }
 })
+
+const all = document.querySelectorAll(".overlay")
+
+console.log(all.length);
