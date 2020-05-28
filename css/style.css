@@ -55,7 +55,8 @@ body {
 .avatar {
   border-radius: 50%; }
 
-.name {
+.name,
+.nameoverlay {
   font-family: nameItem;
   letter-spacing: 2px; }
 
@@ -66,6 +67,17 @@ body {
 .birthday {
   color: tomato;
   margin-top: 8px; }
+
+/*********************************
+// overlayContainer Layout Style
+*********************/
+.overlayWrap {
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  visibility: hidden; }
 
 /*********************************
 // overlay style
@@ -80,7 +92,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  display: none; }
+  visibility: hidden; }
 
 .modal {
   width: 350px;
@@ -94,7 +106,8 @@ body {
   border-radius: 10px;
   margin: auto;
   box-shadow: 0 0 5px grey;
-  position: relative; }
+  position: relative;
+  padding: 0 1rem; }
 
 .line {
   margin: 3rem 0; }

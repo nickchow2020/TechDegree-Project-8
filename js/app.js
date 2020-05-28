@@ -2,7 +2,8 @@
 //Used in this project
 /****************** */
 const randomUsersAPI = "https://randomuser.me/api/?results=12";
-const gridContainer = document.querySelector(".grid-container");
+const gridsContainer = document.querySelector(".grid-container");
+const overlaysContainer = document.querySelector(".overlayWrap");
 const body = document.querySelector("body");
 
 
@@ -57,7 +58,7 @@ function structureHTML(data){
     const usersHTML = data.map(data => {
         const gridItem = document.createElement("DIV");
         gridItem.classList.add("grid-item");
-        gridContainer.appendChild(gridItem);
+        gridsContainer.appendChild(gridItem);
         gridItem.innerHTML = `
         <img src="${data.avatarURL}" alt="${data.name}" class="avatar">
         <div>
@@ -80,13 +81,13 @@ function overlayHTML(data){
   const usersData = data.map(data => {
     const newDiv = document.createElement("div");
     newDiv.classList.add("overlay");
-    body.appendChild(newDiv);
+    overlaysContainer.appendChild(newDiv);
     newDiv.innerHTML = `
     <div class="modal">
       <p class="close">X</p>
       <div>
         <img src="${data.avatarURL}" alt="${data.name}" class="avatar">
-        <h2 class="name">${data.name}</h2>
+        <h2 class="nameoverlay">${data.name}</h2>
         <p class="email">${data.email}/p>
         <p class="city">${data.city}</p>
         <hr class="line">
@@ -101,10 +102,24 @@ function overlayHTML(data){
   return usersData;
 }
 
-
+/**********************Function Call: */
+// Structure the Overlay HTML Data,
+// Structure the HTML Data,
+/****************** */
 randomUsers(randomUsersAPI)
  .then(structureData)
  .then(data => {
   structureHTML(data),
   overlayHTML(data)
  })
+  .catch(err => console.log("There Was a Error occur,Please check your code",err))
+
+
+/***************Event Handler That: */
+//making modal window pop up
+/****************** */
+body.addEventListener("click",(e)=>{
+    if(e.target.classList.contains("name")){
+       let name = e.target.textContent;
+    }
+})
