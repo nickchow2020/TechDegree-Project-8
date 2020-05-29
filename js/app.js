@@ -3,7 +3,7 @@
 /****************** */
 const randomUsersAPI = "https://randomuser.me/api/?results=12";
 const gridsContainer = document.querySelector(".grid-container");
-const overlaysContainer = document.querySelector(".overlayWrap");
+const overlaysContainer = document.querySelector(".wrap");
 const body = document.querySelector("body");
 
 
@@ -125,6 +125,6 @@ body.addEventListener("click",(e)=>{
     }
 })
 
-const all = document.querySelectorAll(".overlay")
+const all = document.querySelectorAll(".grid-item")
 
 console.log(all.length);
