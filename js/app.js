@@ -5,6 +5,7 @@ const randomUsersAPI = "https://randomuser.me/api/?results=12";
 const gridsContainer = document.querySelector(".grid-container");
 const overlaysContainer = document.querySelector(".overlayWrap");
 const body = document.querySelector("body");
+const filterInput = document.querySelector(".filter")
 
 /**********************Async Function That: */
 // Getting Data From API With 12 random Users and Structure Them
@@ -66,9 +67,28 @@ function structureHTML(data){
           <p class="city">${data.city}</p>
         </div>
         `
+        return gridItem;
     })
     return usersHTML;
 }
+
+
+// function structureFilter(data){
+//   const usersHTML = data.map(data => {
+//     gridsContainer.innerHTML = `
+//       <div class="grid-item">
+//         <img src="${data.avatarURL}" alt="${data.name}" class="avatar">
+//         <div>
+//           <h2 class="name">${data.name}</h2>
+//           <p class="email">${data.email}</p>
+//           <p class="city">${data.city}</p>
+//         </div>
+//       </div>
+//       `
+//       return gridItem;
+//   })
+//   return usersHTML;
+// }
 
 
 
@@ -103,7 +123,20 @@ function overlayHTML(data){
 randomUsers(randomUsersAPI)
  .then(structureData)
  .then(data => {
-  structureHTML(data);
+  structureHTML(data)
+
+  filterInput.addEventListener("keyup",(e)=>{
+    const filterValue = filterInput.value.toLowerCase();
+    const filterData = [];
+    for(let i = 0; i < data.length; i ++){
+      if(data[i].name.toLowerCase().indexOf(filterValue) > -1){
+         filterData.push(data[i])
+      }
+    }
+  })
+
+
+
 
 /***************Event Handler That: */
   //making modal window pop up
