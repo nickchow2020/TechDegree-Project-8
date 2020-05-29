@@ -127,11 +127,13 @@ randomUsers(randomUsersAPI)
 
   filterInput.addEventListener("keyup",(e)=>{
     const filterValue = filterInput.value.toLowerCase();
-    const filterData = [];
-    for(let i = 0; i < data.length; i ++){
-      if(data[i].name.toLowerCase().indexOf(filterValue) > -1){
-         filterData.push(data[i])
-      }
+    let filterData = [];
+    if(filterValue !== ""){
+      for(let i = 0; i < data.length; i ++){
+        if(data[i].name.toLowerCase().indexOf(filterValue) > -1){
+          filterData.push(data[i])
+        }
+     }
     }
   })
 
