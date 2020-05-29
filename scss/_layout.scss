@@ -15,7 +15,7 @@ body{
     font-family: pageHeader;
     font-size: 2.5rem;
     color: $primaryThemeColor;
-    margin: 1rem 0;
+    padding: 1rem 0;
 }
 /*********************************
 // Grid Layout Style
@@ -28,7 +28,6 @@ body{
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
     grid-auto-rows:200px;
-    padding: 1rem;
 }
 
 .grid-item{
