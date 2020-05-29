@@ -77,30 +77,23 @@ function structureHTML(data){
 /****************** */
 
 function overlayHTML(data){
-  const usersData = data.map(data => {
-    const newDiv = document.createElement("div");
-    newDiv.classList.add("overlay");
-    overlaysContainer.appendChild(newDiv);
-    newDiv.innerHTML = `
-    <div class="modal">
-      <p class="close">X</p>
-      <div>
-        <img src="${data.avatarURL}" alt="${data.name}" class="avatar">
-        <h2 class="nameoverlay">${data.name}</h2>
-        <p class="email">${data.email}/p>
-        <p class="city">${data.city}</p>
-        <hr class="line">
-        <p class="phone">${data.phone}</p>
-        <p class="address">${data.address}</p>
-        <p class="birthday">BirthDay:${data.birthday}</p>
+  overlaysContainer.innerHTML = `
+    <div class="overlay" style="visibility:visible">
+      <div class="modal">
+        <p class="close">X</p>
+        <div>
+          <img src="${data.avatarURL}" alt="${data.name}" class="avatar">
+          <h2 class="nameoverlay">${data.name}</h2>
+          <p class="email">${data.email}</p>
+          <p class="city">${data.city}</p>
+          <hr class="line">
+          <p class="phone">${data.phone}</p>
+          <p class="address">${data.address}</p>
+          <p class="birthday">BirthDay:${data.birthday}</p>
+        </div>
       </div>
     </div>
     `   
-    return newDiv;
-  }) 
-  window.overlayDivs = document.querySelectorAll(".overlay");
-  console.log(overlayDivs);
-  return usersData;
 }
 
 /**********************Function Call: */
@@ -110,22 +103,29 @@ function overlayHTML(data){
 randomUsers(randomUsersAPI)
  .then(structureData)
  .then(data => {
-  structureHTML(data),
-  overlayHTML(data)
+  structureHTML(data);
+
+/***************Event Handler That: */
+  //making modal window pop up
+  body.addEventListener("click",(e)=>{
+    if(e.target.classList.contains("name")){
+      var employeeName = e.target.textContent;
+      for(let i = 0; i < data.length; i ++){
+        if(employeeName === data[i].name){
+          const employeeInfo = data[i];
+          overlayHTML(employeeInfo);
+        }
+      }
+    }
+   //making modal window close
+   if(e.target.classList.contains("close")){
+     const overlay = e.target.parentNode.parentNode;
+     overlay.style.visibility = "hidden";
+   }
+  })
  })
   .catch(err => console.log("There Was a Error occur,Please check your code",err))
 
 
-/***************Event Handler That: */
-//making modal window pop up
-/****************** */
-body.addEventListener("click",(e)=>{
-    if(e.target.classList.contains("name")){
-       let name = e.target.textContent;
-       console.log(name); 
-    }
-})
 
-for(let i = 0; i < overlayDivs.length; i ++){
-  console.log(overlayDivs[i]);
-}
+/****************** */
