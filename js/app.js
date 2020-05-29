@@ -3,9 +3,8 @@
 /****************** */
 const randomUsersAPI = "https://randomuser.me/api/?results=12";
 const gridsContainer = document.querySelector(".grid-container");
-const overlaysContainer = document.querySelector(".wrap");
+const overlaysContainer = document.querySelector(".overlayWrap");
 const body = document.querySelector("body");
-
 
 /**********************Async Function That: */
 // Getting Data From API With 12 random Users and Structure Them
@@ -98,7 +97,9 @@ function overlayHTML(data){
     </div>
     `   
     return newDiv;
-  })
+  }) 
+  window.overlayDivs = document.querySelectorAll(".overlay");
+  console.log(overlayDivs);
   return usersData;
 }
 
@@ -125,6 +126,6 @@ body.addEventListener("click",(e)=>{
     }
 })
 
-const all = document.querySelectorAll(".grid-item")
-
-console.log(all.length);
+for(let i = 0; i < overlayDivs.length; i ++){
+  console.log(overlayDivs[i]);
+}
