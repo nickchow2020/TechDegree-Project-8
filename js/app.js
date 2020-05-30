@@ -101,6 +101,7 @@ function structureFilterHTML(data){
 function overlayHTML(data){
   overlaysContainer.innerHTML = `
     <div class="overlay" style="visibility:visible">
+      <p class="previous"><</p>
       <div class="modal">
         <p class="close">X</p>
         <div>
@@ -114,6 +115,7 @@ function overlayHTML(data){
           <p class="birthday">BirthDay:${data.birthday}</p>
         </div>
       </div>
+      <p class="next">></p>
     </div>
     `   
 }
@@ -127,7 +129,7 @@ randomUsers(randomUsersAPI)
  .then(data => {
   structureHTML(data)
 
-  
+
  /***************Event Handler keyup That: */
  //making the filter by employee name 
   filterInput.addEventListener("keyup",(e)=>{
