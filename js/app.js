@@ -73,22 +73,24 @@ function structureHTML(data){
 }
 
 
-// function structureFilter(data){
-//   const usersHTML = data.map(data => {
-//     gridsContainer.innerHTML = `
-//       <div class="grid-item">
-//         <img src="${data.avatarURL}" alt="${data.name}" class="avatar">
-//         <div>
-//           <h2 class="name">${data.name}</h2>
-//           <p class="email">${data.email}</p>
-//           <p class="city">${data.city}</p>
-//         </div>
-//       </div>
-//       `
-//       return gridItem;
-//   })
-//   return usersHTML;
-// }
+function structureFilterHTML(data){
+  gridsContainer.innerHTML = "";
+  const usersHTML = data.map(data => {
+      const gridItem = document.createElement("DIV");
+      gridItem.classList.add("grid-item");
+      gridsContainer.appendChild(gridItem);
+      gridItem.innerHTML = `
+      <img src="${data.avatarURL}" alt="${data.name}" class="avatar">
+      <div>
+        <h2 class="name">${data.name}</h2>
+        <p class="email">${data.email}</p>
+        <p class="city">${data.city}</p>
+      </div>
+      `
+      return gridItem;
+  })
+  return usersHTML;
+}
 
 
 
@@ -125,15 +127,21 @@ randomUsers(randomUsersAPI)
  .then(data => {
   structureHTML(data)
 
+  
+ /***************Event Handler keyup That: */
+ //making the filter by employee name 
   filterInput.addEventListener("keyup",(e)=>{
     const filterValue = filterInput.value.toLowerCase();
-    let filterData = [];
     if(filterValue !== ""){
+      let filterData = [];
       for(let i = 0; i < data.length; i ++){
         if(data[i].name.toLowerCase().indexOf(filterValue) > -1){
           filterData.push(data[i])
         }
      }
+     structureFilterHTML(filterData);
+    }else{
+      structureFilterHTML(data)
     }
   })
 
