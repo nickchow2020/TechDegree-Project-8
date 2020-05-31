@@ -158,6 +158,7 @@ randomUsers(randomUsersAPI)
 
 /***************Event Handler click That: */
   //making modal window pop up and close
+  //also able to interactive with previsou and next arrow
   gridsContainer.addEventListener("click",(e)=>{
 
    //making modal window close
@@ -175,14 +176,35 @@ randomUsers(randomUsersAPI)
      }
     }
 
+    // making the privous Arrow clickable
     if(e.target.classList.contains("previous")){
-      console.log("YES");
+      const target = e.target;
+      const targetParent = target.parentNode;
+      const targetSection = targetParent.parentNode;
+      const previousSection = targetSection.previousElementSibling;
+      if(previousSection){
+        const previousOverlay = previousSection.children[1];
+        targetParent.style.visibility = "hidden";
+        previousOverlay.style.visibility = "visible";
+      }
+    }
+
+    //making the next Arrow clickable
+    if(e.target.classList.contains("next")){
+      const target = e.target;
+      const targetParent = target.parentNode;
+      const targetSection = targetParent.parentNode;
+      const nextSection = targetSection.nextElementSibling;
+
+      if(nextSection){
+        const nextOverlay = nextSection.children[1];
+        targetParent.style.visibility = "hidden";
+        nextOverlay.style.visibility = "visible";
+      }
     }
 
   })
-
-
-
+  
  })
   .catch(err => console.log("There Was a Error occur,Please check your code",err))
 
