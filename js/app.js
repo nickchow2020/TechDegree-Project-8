@@ -168,12 +168,17 @@ randomUsers(randomUsersAPI)
    }
 
    //making the overlay window pop up
-   if(e.target.tagName === "DIV"){
+   if(e.target.tagName === "DIV" || e.target.tagName === "IMG" || e.target.tagName === "H2" || e.target.tagName === "P"){
      const target = e.target;
 
      if(target.classList.contains("card")){
       target.nextElementSibling.style.visibility = "visible";
      }
+     
+      const cardImg = target.closest(".card");
+      if(cardImg){
+        cardImg.nextElementSibling.style.visibility = "visible";
+      }
     }
 
     // making the privous Arrow clickable
