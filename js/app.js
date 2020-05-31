@@ -4,8 +4,8 @@
 const randomUsersAPI = "https://randomuser.me/api/?results=12";
 const gridsContainer = document.querySelector(".grid-container");
 const overlaysContainer = document.querySelector(".overlayWrap");
-const body = document.querySelector("body");
 const filterInput = document.querySelector(".filter")
+const overlayDiv = document.querySelectorAll(".overlay")
 
 /**********************Async Function That: */
 // Getting Data From API With 12 random Users and Structure Them
@@ -56,16 +56,35 @@ async function randomUsers(url){
 /****************** */
 function structureHTML(data){
     const usersHTML = data.map(data => {
-        const gridItem = document.createElement("DIV");
+        const gridItem = document.createElement("SECTION");
         gridItem.classList.add("grid-item");
         gridsContainer.appendChild(gridItem);
         gridItem.innerHTML = `
-        <img src="${data.avatarURL}" alt="${data.name}" class="avatar">
-        <div>
-          <h2 class="name">${data.name}</h2>
-          <p class="email">${data.email}</p>
-          <p class="city">${data.city}</p>
+        <div class="card">
+          <img src="${data.avatarURL}" alt="${data.name}" class="avatar">
+          <div>
+            <h2 class="name">${data.name}</h2>
+            <p class="email">${data.email}</p>
+            <p class="city">${data.city}</p>
+          </div>
         </div>
+      <div class="overlay">
+        <p class="previous"><</p>
+        <div class="modal">
+          <p class="close">X</p>
+          <div>
+            <img src="${data.avatarURL}" alt="${data.name}" class="avatar">
+            <h2 class="nameoverlay">${data.name}</h2>
+            <p class="email">${data.email}</p>
+            <p class="city">${data.city}</p>
+            <hr class="line">
+            <p class="phone">${data.phone}</p>
+            <p class="address">${data.address}</p>
+            <p class="birthday">BirthDay:${data.birthday}</p>
+          </div>
+        </div>
+        <p class="next">></p>
+      </div>
         `
         return gridItem;
     })
@@ -76,50 +95,40 @@ function structureHTML(data){
 function structureFilterHTML(data){
   gridsContainer.innerHTML = "";
   const usersHTML = data.map(data => {
-      const gridItem = document.createElement("DIV");
-      gridItem.classList.add("grid-item");
-      gridsContainer.appendChild(gridItem);
-      gridItem.innerHTML = `
+    const gridItem = document.createElement("SECTION");
+    gridItem.classList.add("grid-item");
+    gridsContainer.appendChild(gridItem);
+    gridItem.innerHTML = `
+    <div class="card">
       <img src="${data.avatarURL}" alt="${data.name}" class="avatar">
       <div>
         <h2 class="name">${data.name}</h2>
         <p class="email">${data.email}</p>
         <p class="city">${data.city}</p>
       </div>
-      `
-      return gridItem;
-  })
-  return usersHTML;
-}
-
-
-
-/**********************Function That: */
-// Going to Structure the Overlay HTML Data
-/****************** */
-
-function overlayHTML(data){
-  overlaysContainer.innerHTML = `
-    <div class="overlay" style="visibility:visible">
-      <p class="previous"><</p>
-      <div class="modal">
-        <p class="close">X</p>
-        <div>
-          <img src="${data.avatarURL}" alt="${data.name}" class="avatar">
-          <h2 class="nameoverlay">${data.name}</h2>
-          <p class="email">${data.email}</p>
-          <p class="city">${data.city}</p>
-          <hr class="line">
-          <p class="phone">${data.phone}</p>
-          <p class="address">${data.address}</p>
-          <p class="birthday">BirthDay:${data.birthday}</p>
-        </div>
-      </div>
-      <p class="next">></p>
     </div>
-    `   
+    <div class="overlay">
+    <p class="previous"><</p>
+    <div class="modal">
+      <p class="close">X</p>
+      <div>
+        <img src="${data.avatarURL}" alt="${data.name}" class="avatar">
+        <h2 class="nameoverlay">${data.name}</h2>
+        <p class="email">${data.email}</p>
+        <p class="city">${data.city}</p>
+        <hr class="line">
+        <p class="phone">${data.phone}</p>
+        <p class="address">${data.address}</p>
+        <p class="birthday">BirthDay:${data.birthday}</p>
+      </div>
+    </div>
+    <p class="next">></p>
+  </div>
+    `
+    return gridItem;
+})
+return usersHTML;
 }
-
 /**********************Function Call: */
 // Structure the Overlay HTML Data,
 // Structure the HTML Data,
@@ -127,7 +136,7 @@ function overlayHTML(data){
 randomUsers(randomUsersAPI)
  .then(structureData)
  .then(data => {
-  structureHTML(data)
+    structureHTML(data)
 
 
  /***************Event Handler keyup That: */
@@ -147,27 +156,33 @@ randomUsers(randomUsersAPI)
     }
   })
 
+/***************Event Handler click That: */
+  //making modal window pop up and close
+  gridsContainer.addEventListener("click",(e)=>{
 
-
-
-/***************Event Handler That: */
-  //making modal window pop up
-  body.addEventListener("click",(e)=>{
-    if(e.target.classList.contains("name")){
-      var employeeName = e.target.textContent;
-      for(let i = 0; i < data.length; i ++){
-        if(employeeName === data[i].name){
-          const employeeInfo = data[i];
-          overlayHTML(employeeInfo);
-        }
-      }
-    }
    //making modal window close
    if(e.target.classList.contains("close")){
      const overlay = e.target.parentNode.parentNode;
      overlay.style.visibility = "hidden";
    }
+
+   //making the overlay window pop up
+   if(e.target.tagName === "DIV"){
+     const target = e.target;
+
+     if(target.classList.contains("card")){
+      target.nextElementSibling.style.visibility = "visible";
+     }
+    }
+
+    if(e.target.classList.contains("previous")){
+      console.log("YES");
+    }
+
   })
+
+
+
  })
   .catch(err => console.log("There Was a Error occur,Please check your code",err))
 
