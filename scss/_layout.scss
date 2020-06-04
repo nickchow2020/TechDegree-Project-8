@@ -13,10 +13,27 @@ body{
 
 .main-header{
     font-family: pageHeader;
-    font-size: 2.5rem;
+    font-size: 1.3rem;
     color: $primaryThemeColor;
     padding: 1rem 0;
+    width: 100%;
+    text-align: center;
+    @media(min-width:600px){
+        font-size: 2rem;
+    }
+    @media(min-width: 992px){
+        font-size: 2.5rem;
+        width: auto;
+    }
 }
+
+
+// .main-header{
+//     font-family: pageHeader;
+//     font-size: 2.5rem;
+//     color: $primaryThemeColor;
+//     padding: 1rem 0;
+// }
 /*********************************
 // Grid Layout Style
 *********************/

@@ -21,9 +21,18 @@ body {
 
 .main-header {
   font-family: pageHeader;
-  font-size: 2.5rem;
+  font-size: 1.3rem;
   color: tomato;
-  padding: 1rem 0; }
+  padding: 1rem 0;
+  width: 100%;
+  text-align: center; }
+  @media (min-width: 600px) {
+    .main-header {
+      font-size: 2rem; } }
+  @media (min-width: 992px) {
+    .main-header {
+      font-size: 2.5rem;
+      width: auto; } }
 
 /*********************************
 // Grid Layout Style
@@ -128,11 +137,15 @@ body {
 header {
   margin: auto;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center; }
+  @media (min-width: 992px) {
+    header {
+      flex-direction: row;
+      justify-content: space-between; } }
 
 .filter {
-  width: 38%;
+  width: 90%;
   height: 2rem;
   outline: none;
   border: none;
@@ -140,8 +153,13 @@ header {
   padding: .5rem .5rem;
   border-radius: 10px;
   box-shadow: 0 0 5px grey;
-  transition: .4s; }
+  transition: .4s;
+  margin-bottom: 1rem; }
   .filter:focus {
     box-shadow: 0 0 5px tomato; }
+  @media (min-width: 992px) {
+    .filter {
+      width: 38%;
+      margin-top: 1rem; } }
 
 /*# sourceMappingURL=style.css.map */
